@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="images\blackPiece.png" />
+    <None Remove="images\emptyPiece.png" />
+    <None Remove="images\greaterBoard.jpg" />
+    <None Remove="images\lesserBoard.png" />
+    <None Remove="images\onePiece.png" />
+    <None Remove="images\pente.png" />
+    <None Remove="images\whitePiece.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaResource Include="images\blackPiece.png" />
+    <AvaloniaResource Include="images\emptyPiece.png" />
+    <AvaloniaResource Include="images\greaterBoard.jpg" />
+    <AvaloniaResource Include="images\lesserBoard.png" />
+    <AvaloniaResource Include="images\onePiece.png" />
+    <AvaloniaResource Include="images\pente.png" />
+    <AvaloniaResource Include="images\whitePiece.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.2.1" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.2.1" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.1" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.1" />
+    <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+    <PackageReference Include="Avalonia.Diagnostics" Version="11.2.1">
+      <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
+      <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>
