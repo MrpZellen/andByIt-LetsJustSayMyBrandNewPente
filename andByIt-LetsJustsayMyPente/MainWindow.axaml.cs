@@ -11,7 +11,7 @@ namespace andByIt_LetsJustSayMyPente
 
         private void NavToPvp(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            var pvpWindow = new PVPGameWindow();
+            var pvpWindow = new GameGrid();
             pvpWindow.Show();
         }
         private void NavToAI(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
