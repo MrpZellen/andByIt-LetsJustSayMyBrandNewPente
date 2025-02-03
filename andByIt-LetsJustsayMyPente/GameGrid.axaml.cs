@@ -13,25 +13,25 @@ namespace andByIt_LetsJustSayMyPente;
 public partial class GameGrid : Window
 {
     private Game game;
-    private Button button;
 
     public GameGrid()
     {
         InitializeComponent();
         game = new Game("tom", "fred");
         game.printGame();
-
-        button = new Button();
         var grid = this.FindControl<UniformGrid>("Test");
         for (int i = 0; i < 19; i++)
         {
             for (int j = 0; j < 19; j++)
             {
-                if (j % 3 == 0)
+                if (game.Board.checkSpot(i,j) == 0)
                 {
-                    grid.Children.Add(new Button {Click = onClick });
+                    var btn = new Button();
+                    btn.Tag = (Row: i, Column: j);
+                    btn.Click += onClick;
+                    grid.Children.Add(btn);
                 }
-                else if (j % 3 == 1)
+                else if (game.Board.checkSpot(i,j) == 1)
                 {
                     grid.Children.Add(new Rectangle
                         { [Shape.FillProperty] = Brushes.White, Width = 10, Height = 10, Opacity = 0.9 });
@@ -47,6 +47,53 @@ public partial class GameGrid : Window
 
     private void onClick(object? sender, RoutedEventArgs e)
     {
-        throw new NotImplementedException();
+        if (sender is Button btn && btn.Tag is ValueTuple<int, int> indices)
+        {
+            var (row, column) = indices;
+            // Console.WriteLine($"Row: {row}, Column: {column}");
+            game.makeMove(row, column);
+            game.CheckCaptures();
+            updateBoard();
+            if (game.CheckWin(row,column,game.CurrentPlayer.PlayerInducator) || game.CurrentPlayer.CaptureCount == 10)
+            {
+                Console.WriteLine("Player " + game.CurrentPlayer.Name + " wins!");
+                // current player wins
+                // brings to win screen // win screen will have a button to play again or main menu
+            }
+            else
+            {
+                //continue
+                game.endTurn();
+            }
+        }
+    }
+
+    private void updateBoard()
+    {
+        var grid = this.FindControl<UniformGrid>("Test");
+        grid.Children.Clear();
+        for (int i = 0; i < 19; i++)
+        {
+            for (int j = 0; j < 19; j++ )
+            {
+                if (game.Board.checkSpot(i,j) == 0)
+                {
+                    var btn = new Button();
+                    btn.Tag = (Row: i, Column: j);
+                    btn.Click += onClick;
+                    grid.Children.Add(btn);
+                }
+                else if (game.Board.checkSpot(i,j) == 1)
+                {
+                    grid.Children.Add(new Rectangle
+                        { [Shape.FillProperty] = Brushes.White, Width = 10, Height = 10, Opacity = 0.9 });
+                }
+                else
+                {
+                    grid.Children.Add(new Rectangle
+                        { [Shape.FillProperty] = Brushes.Black, Width = 10, Height = 10, Opacity = 0.9 });
+                }
+            }
+        }
     }
 }

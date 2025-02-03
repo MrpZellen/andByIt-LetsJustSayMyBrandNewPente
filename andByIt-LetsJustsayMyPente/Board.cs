@@ -15,4 +15,9 @@ public class Board
     {
         return board;
     }
+
+    public int checkSpot(int x, int y)
+    {
+        return board[x, y];
+    }
 }
