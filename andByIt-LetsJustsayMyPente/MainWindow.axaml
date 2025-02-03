@@ -24,12 +24,12 @@
 			<TextBlock>
 				Enter Your Name
 			</TextBlock>
-			<TextBox Name="P1">
+			<TextBox Name="P1" Text="Player1">
 			</TextBox>
 			<TextBlock>
 				Enter the 2nd player Name
 			</TextBlock>
-			<TextBox Name="P2">
+			<TextBox Name="P2" Text="Player2">
 			</TextBox>
 		</StackPanel>
 		<Image Grid.Row="1" Grid.Column="0" Source="/images/pente.png" />

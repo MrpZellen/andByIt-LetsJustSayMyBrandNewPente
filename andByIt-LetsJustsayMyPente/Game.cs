@@ -122,8 +122,7 @@ public class Game
         // No win condition met
         return false;
     }
-
-
+    
     public void CheckCaptures()
     {
             int numRows = board.getBoard().GetLength(0);
@@ -193,42 +192,21 @@ public class Game
                 }
             }
 
-        // Only Player 1 captured
-        if (player1Captured && !player2Captured)
-        {
-            PlayerOne.CaptureCount += 2;
-        } else if (player2Captured && !player1Captured)
-        {
-            PlayerTwo.CaptureCount += 2;
-        } else if (player1Captured && player2Captured)
-        {
-            PlayerOne.CaptureCount += 2; 
-            PlayerTwo.CaptureCount += 2;
-        }
+            if (player1Captured && !player2Captured)
+            {
+                PlayerOne.CaptureCount += 2;
+            } else if (player2Captured && !player1Captured)
+            {
+                PlayerTwo.CaptureCount += 2;
+            } else if (player1Captured && player2Captured)
+            {
+                PlayerOne.CaptureCount += 2; 
+                PlayerTwo.CaptureCount += 2;
+            }
     }
 
     private bool IsInBounds(int r, int c, int numRows, int numCols)
     {
         return r >= 0 && r < numRows && c >= 0 && c < numCols;
-    }
-
-    private Player getOpponentPlayer(int player)
-    {
-        if (player == 1)
-        {
-            return playerTwo;
-        }
-        else
-        {
-            return playerOne;
-        }
-    }
-
-    private void removeStone(HashSet<(int, int)> removed)
-    {
-        foreach (var (r, c) in removed)
-        {
-            board.getBoard()[r, c] = 0;
-        }
     }
 }

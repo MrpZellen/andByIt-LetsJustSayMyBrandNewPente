@@ -13,11 +13,30 @@ namespace andByIt_LetsJustSayMyPente;
 public partial class GameGrid : Window
 {
     private Game game;
+    private string playerOneName;
+    private string playerTwoName;
+
+    public string PlayerOneName
+    {
+        get => playerOneName;
+        set => playerOneName = value ?? throw new ArgumentNullException(nameof(value));
+    }
+
+    public string PlayerTwoName
+    {
+        get => playerTwoName;
+        set => playerTwoName = value ?? throw new ArgumentNullException(nameof(value));
+    }
 
     public GameGrid()
     {
         InitializeComponent();
-        game = new Game("tom", "fred");
+    }
+
+    public GameGrid(string playerOneName, string playerTwoName)
+    {
+        InitializeComponent();
+        game = new Game(playerOneName, playerTwoName);
         game.printGame();
         var grid = this.FindControl<UniformGrid>("Test");
         for (int i = 0; i < 19; i++)
