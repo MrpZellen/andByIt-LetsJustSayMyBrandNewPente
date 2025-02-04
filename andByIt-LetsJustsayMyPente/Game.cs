@@ -115,7 +115,9 @@ public class Game
 
             // If we've found 5 or more in a row, return true
             if (count >= 5)
+            {
                 return true;
+            }
         }
 
         // No win condition met
@@ -204,6 +206,104 @@ public class Game
             PlayerOne.CaptureCount += 2;
             PlayerTwo.CaptureCount += 2;
         }
+    }
+
+    public int CheckForFour(int row, int col, int player)
+    {
+        int numRows = board.getBoard().GetLength(0);
+        int numCols = board.getBoard().GetLength(1);
+
+        // These directions cover horizontal, vertical, and the two diagonal directions.
+        int[][] directions = new int[][]
+        {
+            new int[] { 0, 1 }, // Horizontal
+            new int[] { 1, 0 }, // Vertical
+            new int[] { 1, 1 }, // Diagonal (top-left to bottom-right)
+            new int[] { 1, -1 } // Diagonal (top-right to bottom-left)
+        };
+
+        // Check each direction
+        foreach (var direction in directions)
+        {
+            int count = 1; // Count the stone just placed
+            int dRow = direction[0];
+            int dCol = direction[1];
+
+            // Check in the positive direction
+            int r = row + dRow;
+            int c = col + dCol;
+            while (r >= 0 && r < numRows && c >= 0 && c < numCols && board.getBoard()[r, c] == player)
+            {
+                count++;
+                r += dRow;
+                c += dCol;
+            }
+
+            // Check in the negative direction (the opposite direction)
+            r = row - dRow;
+            c = col - dCol;
+            while (r >= 0 && r < numRows && c >= 0 && c < numCols && board.getBoard()[r, c] == player)
+            {
+                count++;
+                r -= dRow;
+                c -= dCol;
+            }
+
+            if (count >= 4)
+            {
+                return count;
+            }
+        }
+        return 0;
+    }
+
+    public int CheckForThree(int row, int col, int player)
+    {
+        int numRows = board.getBoard().GetLength(0);
+        int numCols = board.getBoard().GetLength(1);
+
+        // These directions cover horizontal, vertical, and the two diagonal directions.
+        int[][] directions = new int[][]
+        {
+            new int[] { 0, 1 }, // Horizontal
+            new int[] { 1, 0 }, // Vertical
+            new int[] { 1, 1 }, // Diagonal (top-left to bottom-right)
+            new int[] { 1, -1 } // Diagonal (top-right to bottom-left)
+        };
+
+        // Check each direction
+        foreach (var direction in directions)
+        {
+            int count = 1; // Count the stone just placed
+            int dRow = direction[0];
+            int dCol = direction[1];
+
+            // Check in the positive direction
+            int r = row + dRow;
+            int c = col + dCol;
+            while (r >= 0 && r < numRows && c >= 0 && c < numCols && board.getBoard()[r, c] == player)
+            {
+                count++;
+                r += dRow;
+                c += dCol;
+            }
+
+            // Check in the negative direction (the opposite direction)
+            r = row - dRow;
+            c = col - dCol;
+            while (r >= 0 && r < numRows && c >= 0 && c < numCols && board.getBoard()[r, c] == player)
+            {
+                count++;
+                r -= dRow;
+                c -= dCol;
+            }
+
+            if (count >= 3)
+            {
+                return count;
+            }
+        }
+        return 0;
     }
 
     private bool IsInBounds(int r, int c, int numRows, int numCols)
