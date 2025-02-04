@@ -54,8 +54,8 @@ namespace andByIt_LetsJustSayMyPente
                     playerTwoName = "Player2";
                 }
             }
-            
+
         }
-        
+
     }
 }

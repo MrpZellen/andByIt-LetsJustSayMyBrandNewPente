@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace andByIt_LetsJustSayMyPente;
 
@@ -122,17 +121,17 @@ public class Game
         // No win condition met
         return false;
     }
-    
+
     public void CheckCaptures()
     {
-            int numRows = board.getBoard().GetLength(0);
-            int numCols = board.getBoard().GetLength(1);
-            bool player1Captured = false;
-            bool player2Captured = false;
+        int numRows = board.getBoard().GetLength(0);
+        int numCols = board.getBoard().GetLength(1);
+        bool player1Captured = false;
+        bool player2Captured = false;
 
-            // Directions to check
-            int[][] directions = new int[][]
-            {
+        // Directions to check
+        int[][] directions = new int[][]
+        {
                 new int[] { 0, 1 }, // Right
                 new int[] { 1, 0 }, // Down
                 new int[] { 1, 1 }, // Down-right
@@ -141,68 +140,70 @@ public class Game
                 new int[] { -1, 0 }, // Up
                 new int[] { -1, -1 }, // Up-left
                 new int[] { -1, 1 } // Up-right
-            };
+        };
 
-            // looks for a capure on the board
-            for (int row = 0; row < numRows; row++)
+        // looks for a capure on the board
+        for (int row = 0; row < numRows; row++)
+        {
+            for (int col = 0; col < numCols; col++)
             {
-                for (int col = 0; col < numCols; col++)
+                int player = board.getBoard()[row, col];
+                // Skip empty spaces
+                if (player == 0)
                 {
-                    int player = board.getBoard()[row, col];
-                    // Skip empty spaces
-                    if (player == 0)
+                    continue;
+                }
+
+                int opponent = (player == 1) ? 2 : 1;
+
+                foreach (var dir in directions)
+                {
+                    int dRow = dir[0];
+                    int dCol = dir[1];
+
+                    int r1 = row + dRow;
+                    int c1 = col + dCol;
+                    int r2 = row + 2 * dRow;
+                    int c2 = col + 2 * dCol;
+                    int r3 = row + 3 * dRow;
+                    int c3 = col + 3 * dCol;
+
+                    if (IsInBounds(r1, c1, numRows, numCols) &&
+                        IsInBounds(r2, c2, numRows, numCols) &&
+                        IsInBounds(r3, c3, numRows, numCols))
                     {
-                        continue;
-                    } 
-
-                    int opponent = (player == 1) ? 2 : 1;
-
-                    foreach (var dir in directions)
-                    {
-                        int dRow = dir[0];
-                        int dCol = dir[1];
-
-                        int r1 = row + dRow;
-                        int c1 = col + dCol;
-                        int r2 = row + 2 * dRow;
-                        int c2 = col + 2 * dCol;
-                        int r3 = row + 3 * dRow;
-                        int c3 = col + 3 * dCol;
-
-                        if (IsInBounds(r1, c1, numRows, numCols) &&
-                            IsInBounds(r2, c2, numRows, numCols) &&
-                            IsInBounds(r3, c3, numRows, numCols))
+                        if (board.getBoard()[r1, c1] == opponent &&
+                            board.getBoard()[r2, c2] == opponent &&
+                            board.getBoard()[r3, c3] == player)
                         {
-                            if (board.getBoard()[r1, c1] == opponent &&
-                                board.getBoard()[r2, c2] == opponent &&
-                                board.getBoard()[r3, c3] == player)
-                            {
-                                // Capture found
-                                if (player == 1)
-                                    player1Captured = true;
-                                else
-                                    player2Captured = true;
+                            // Capture found
+                            if (player == 1)
+                                player1Captured = true;
+                            else
+                                player2Captured = true;
 
-                                // Remove captured stuff
-                                board.getBoard()[r1, c1] = 0;
-                                board.getBoard()[r2, c2] = 0;
-                            }
+                            // Remove captured stuff
+                            board.getBoard()[r1, c1] = 0;
+                            board.getBoard()[r2, c2] = 0;
                         }
                     }
                 }
             }
+        }
 
-            if (player1Captured && !player2Captured)
-            {
-                PlayerOne.CaptureCount += 2;
-            } else if (player2Captured && !player1Captured)
-            {
-                PlayerTwo.CaptureCount += 2;
-            } else if (player1Captured && player2Captured)
-            {
-                PlayerOne.CaptureCount += 2; 
-                PlayerTwo.CaptureCount += 2;
-            }
+        if (player1Captured && !player2Captured)
+        {
+            PlayerOne.CaptureCount += 2;
+        }
+        else if (player2Captured && !player1Captured)
+        {
+            PlayerTwo.CaptureCount += 2;
+        }
+        else if (player1Captured && player2Captured)
+        {
+            PlayerOne.CaptureCount += 2;
+            PlayerTwo.CaptureCount += 2;
+        }
     }
 
     private bool IsInBounds(int r, int c, int numRows, int numCols)

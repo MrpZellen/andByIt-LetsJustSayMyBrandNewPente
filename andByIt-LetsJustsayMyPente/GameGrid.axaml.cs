@@ -1,10 +1,11 @@
-using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Shapes;
 using Avalonia.Interactivity;
 using Avalonia.Media;
-using Avalonia.Media.Imaging;
+using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using ArgumentNullException = System.ArgumentNullException;
 
 
@@ -16,10 +17,31 @@ public partial class GameGrid : Window
     private string playerOneName;
     private string playerTwoName;
 
+    //win binding update variable
+    private string _isCloseToWin = "not close yet....";
+    public string IsCloseToWin
+    {
+        get => _isCloseToWin;
+        set => _isCloseToWin = value ?? throw new ArgumentNullException(nameof(value));
+    }
+    public event PropertyChangedEventHandler? PropertyChanged;
+    protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+
     public string PlayerOneName
     {
         get => playerOneName;
-        set => playerOneName = value ?? throw new ArgumentNullException(nameof(value));
+        set
+        {
+            if (_isCloseToWin != value)
+            {
+                _isCloseToWin = value;
+                OnPropertyChanged();
+            }
+        }
     }
 
     public string PlayerTwoName
@@ -31,6 +53,7 @@ public partial class GameGrid : Window
     public GameGrid()
     {
         InitializeComponent();
+        DataContext = this;
     }
 
     public GameGrid(string playerOneName, string playerTwoName)
@@ -43,22 +66,22 @@ public partial class GameGrid : Window
         {
             for (int j = 0; j < 19; j++)
             {
-                if (game.Board.checkSpot(i,j) == 0)
+                if (game.Board.checkSpot(i, j) == 0)
                 {
                     var btn = new Button();
                     btn.Tag = (Row: i, Column: j);
                     btn.Click += onClick;
                     grid.Children.Add(btn);
                 }
-                else if (game.Board.checkSpot(i,j) == 1)
+                else if (game.Board.checkSpot(i, j) == 1)
                 {
                     grid.Children.Add(new Rectangle
-                        { [Shape.FillProperty] = Brushes.White, Width = 10, Height = 10, Opacity = 0.9 });
+                    { [Shape.FillProperty] = Brushes.White, Width = 10, Height = 10, Opacity = 0.9 });
                 }
                 else
                 {
                     grid.Children.Add(new Rectangle
-                        { [Shape.FillProperty] = Brushes.Black, Width = 10, Height = 10, Opacity = 0.9 });
+                    { [Shape.FillProperty] = Brushes.Black, Width = 10, Height = 10, Opacity = 0.9 });
                 }
             }
         }
@@ -73,7 +96,7 @@ public partial class GameGrid : Window
             game.makeMove(row, column);
             game.CheckCaptures();
             updateBoard();
-            if (game.CheckWin(row,column,game.CurrentPlayer.PlayerInducator) || game.CurrentPlayer.CaptureCount == 10)
+            if (game.CheckWin(row, column, game.CurrentPlayer.PlayerInducator) || game.CurrentPlayer.CaptureCount == 10)
             {
                 Console.WriteLine("Player " + game.CurrentPlayer.Name + " wins!");
                 // current player wins
@@ -93,24 +116,24 @@ public partial class GameGrid : Window
         grid.Children.Clear();
         for (int i = 0; i < 19; i++)
         {
-            for (int j = 0; j < 19; j++ )
+            for (int j = 0; j < 19; j++)
             {
-                if (game.Board.checkSpot(i,j) == 0)
+                if (game.Board.checkSpot(i, j) == 0)
                 {
                     var btn = new Button();
                     btn.Tag = (Row: i, Column: j);
                     btn.Click += onClick;
                     grid.Children.Add(btn);
                 }
-                else if (game.Board.checkSpot(i,j) == 1)
+                else if (game.Board.checkSpot(i, j) == 1)
                 {
                     grid.Children.Add(new Rectangle
-                        { [Shape.FillProperty] = Brushes.White, Width = 10, Height = 10, Opacity = 0.9 });
+                    { [Shape.FillProperty] = Brushes.White, Width = 10, Height = 10, Opacity = 0.9 });
                 }
                 else
                 {
                     grid.Children.Add(new Rectangle
-                        { [Shape.FillProperty] = Brushes.Black, Width = 10, Height = 10, Opacity = 0.9 });
+                    { [Shape.FillProperty] = Brushes.Black, Width = 10, Height = 10, Opacity = 0.9 });
                 }
             }
         }

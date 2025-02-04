@@ -2,12 +2,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:local="clr-namespace:andByIt_LetsJustSayMyPente"
              mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="600"
-             x:Class="andByIt_LetsJustSayMyPente.GameGrid">
+             x:Class="andByIt_LetsJustSayMyPente.GameGrid"
+			 x:DataType="local:GameGrid">
 	<Panel>
 		<Image Source="../images/lesserBoard.png" Width="510" Height="500"></Image>
 		<UniformGrid Width="500" Height="500" Name="Test" Columns="19" Rows="19" x:Name="Test">
 			
 		</UniformGrid>
+		<TextBlock TextAlignment="Center" FontSize="30" Text="{Binding IsCloseToWin}"></TextBlock>
 	</Panel>
 </Window>

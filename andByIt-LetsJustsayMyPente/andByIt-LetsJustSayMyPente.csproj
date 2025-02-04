@@ -11,18 +11,26 @@
     <None Remove="images\blackPiece.png" />
     <None Remove="images\emptyPiece.png" />
     <None Remove="images\greaterBoard.jpg" />
+    <None Remove="images\joever.png" />
     <None Remove="images\lesserBoard.png" />
     <None Remove="images\onePiece.png" />
     <None Remove="images\pente.png" />
+    <None Remove="images\pentetext.png" />
+    <None Remove="images\text.png" />
     <None Remove="images\whitePiece.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="images\pentetext.png" />
   </ItemGroup>
   <ItemGroup>
     <AvaloniaResource Include="images\blackPiece.png" />
     <AvaloniaResource Include="images\emptyPiece.png" />
     <AvaloniaResource Include="images\greaterBoard.jpg" />
+    <AvaloniaResource Include="images\joever.png" />
     <AvaloniaResource Include="images\lesserBoard.png" />
     <AvaloniaResource Include="images\onePiece.png" />
     <AvaloniaResource Include="images\pente.png" />
+    <AvaloniaResource Include="images\text.png" />
     <AvaloniaResource Include="images\whitePiece.png" />
   </ItemGroup>
 
@@ -36,5 +44,11 @@
       <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
       <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="WinScreen.axaml.cs">
+      <DependentUpon>WinScreen.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

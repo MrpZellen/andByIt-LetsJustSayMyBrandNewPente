@@ -2,10 +2,10 @@
 
 public class Board
 {
-   
-    
+
+
     private int[,] board = new int[19, 19];
-    
+
     public Board()
     {
         board = new int[19, 19];
