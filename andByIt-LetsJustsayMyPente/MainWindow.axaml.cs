@@ -20,12 +20,14 @@ namespace andByIt_LetsJustSayMyPente
             getPlayerOneName(false);
             var pvpWindow = new GameGrid(playerOneName, playerTwoName);
             pvpWindow.Show();
+            Close();
         }
         private void NavToAI(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             getPlayerOneName(true);
-            var aiWindow = new AIGameWindow();
+            var aiWindow = new AIGameWindow(playerOneName, playerTwoName);
             aiWindow.Show();
+            Close();
         }
 
         public void getPlayerOneName(bool AI)

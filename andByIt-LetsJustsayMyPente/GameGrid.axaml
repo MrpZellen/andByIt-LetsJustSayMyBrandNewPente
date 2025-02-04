@@ -11,6 +11,6 @@
 		<UniformGrid Width="500" Height="500" Name="Test" Columns="19" Rows="19" x:Name="Test">
 			
 		</UniformGrid>
-		<TextBlock TextAlignment="Center" FontSize="30" Text="{Binding IsCloseToWin}"></TextBlock>
+		<TextBlock TextAlignment="Center" FontSize="30" Text="{Binding IsCloseToWin}" Name="tellUsers"></TextBlock>
 	</Panel>
 </Window>

@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System;
+using Avalonia.Interactivity;
 
 namespace andByIt_LetsJustSayMyPente;
 
@@ -19,10 +20,13 @@ public partial class WinScreen : Window
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
-    public WinScreen()
+    public WinScreen(string winningPlayer)
     {
         InitializeComponent();
         DataContext = this;
+        var text = this.FindControl<TextBlock>("WinningTextBlock");
+        text.Text += "\n" + winningPlayer;
+        
     }
 
     private void GoToMenu(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -31,4 +35,5 @@ public partial class WinScreen : Window
         win.Show();
         Close();
     }
+
 }

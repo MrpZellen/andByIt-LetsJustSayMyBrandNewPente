@@ -20,11 +20,11 @@
 	  
 	  <TextBlock Grid.Column="1" Grid.Row="0" TextAlignment="Center" HorizontalAlignment="Center" FontWeight="ExtraBlack" FontSize="30" Margin="6" Text="YOU WIN!"></TextBlock>
 	  <!--Optional Textblock for PVP, update the binded variable to change it.-->
-	  <TextBlock Grid.Column="2" Grid.Row="0" TextAlignment="Center" HorizontalAlignment="Center" FontSize="20" Margin="3" Text="{Binding WinningPlayer}" TextWrapping="Wrap"></TextBlock>
+	  <TextBlock Grid.Column="2" Grid.Row="0" TextAlignment="Center" HorizontalAlignment="Center" FontSize="20" Margin="3" Text="{Binding WinningPlayer}" TextWrapping="Wrap" Name="WinningTextBlock"></TextBlock>
 
-	  <Button Click="" Grid.Column="0" Grid.Row="1" Content="New Game" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" ></Button>
+	  <!-- <Button Click="" Grid.Column="0" Grid.Row="1" Content="New Game" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" ></Button> -->
 	  <Image Grid.Column="1" Grid.Row="1" Source="/images/text.png" />
-	  <Button Click="" Grid.Column="2" Grid.Row="1" Content="Main Menu" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" ></Button>
+	  <Button Click="GoToMenu" Grid.Column="2" Grid.Row="1" Content="Main Menu" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" ></Button>
   </Grid>
 </Window>
 

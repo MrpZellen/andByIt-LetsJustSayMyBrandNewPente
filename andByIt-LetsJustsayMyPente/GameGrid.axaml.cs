@@ -16,6 +16,7 @@ public partial class GameGrid : Window
     private Game game;
     private string playerOneName;
     private string playerTwoName;
+    private TextBlock textBlock;
 
     //win binding update variable
     private string _isCloseToWin = "not close yet....";
@@ -62,6 +63,7 @@ public partial class GameGrid : Window
         game = new Game(playerOneName, playerTwoName);
         game.printGame();
         var grid = this.FindControl<UniformGrid>("Test");
+        textBlock = this.FindControl<TextBlock>("tellUsers");
         for (int i = 0; i < 19; i++)
         {
             for (int j = 0; j < 19; j++)
@@ -96,9 +98,14 @@ public partial class GameGrid : Window
             game.makeMove(row, column);
             game.CheckCaptures();
             updateBoard();
+            textBlock.Text = checkForUserInfo(game.CheckForFour(row, column, game.CurrentPlayer.PlayerInducator),
+                game.CheckForThree(row, column, game.CurrentPlayer.PlayerInducator));
             if (game.CheckWin(row, column, game.CurrentPlayer.PlayerInducator) || game.CurrentPlayer.CaptureCount == 10)
             {
                 Console.WriteLine("Player " + game.CurrentPlayer.Name + " wins!");
+                var WinScreen = new WinScreen(game.CurrentPlayer.Name);
+                WinScreen.Show();
+                Close();
                 // current player wins
                 // brings to win screen // win screen will have a button to play again or main menu
             }
@@ -136,6 +143,20 @@ public partial class GameGrid : Window
                     { [Shape.FillProperty] = Brushes.Black, Width = 10, Height = 10, Opacity = 0.9 });
                 }
             }
+        }
+    }
+    private string checkForUserInfo(int four, int three)
+    {
+        if (four == 4)
+        {
+            return "Tessera";
+        }else if (three == 3)
+        {
+            return "Tria";
+        }
+        else
+        {
+            return "";
         }
     }
 }

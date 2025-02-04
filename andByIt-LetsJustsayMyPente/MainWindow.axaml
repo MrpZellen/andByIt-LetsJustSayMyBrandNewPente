@@ -22,14 +22,14 @@
 		</TextBlock>
 		<StackPanel Grid.Row="0" Grid.Column="1">
 			<TextBlock>
-				Enter Your Name
+				Enter the 1st player Name
 			</TextBlock>
-			<TextBox Name="P1" Text="Player1">
+			<TextBox Name="P1">
 			</TextBox>
 			<TextBlock>
 				Enter the 2nd player Name
 			</TextBlock>
-			<TextBox Name="P2" Text="Player2">
+			<TextBox Name="P2">
 			</TextBox>
 		</StackPanel>
 		<Image Grid.Row="1" Grid.Column="0" Source="/images/pente.png" />

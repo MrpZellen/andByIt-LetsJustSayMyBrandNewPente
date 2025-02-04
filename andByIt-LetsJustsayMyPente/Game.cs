@@ -251,7 +251,7 @@ public class Game
 
             if (count >= 4)
             {
-                return count;
+                return 4;
             }
         }
         return 0;
@@ -300,7 +300,7 @@ public class Game
 
             if (count >= 3)
             {
-                return count;
+                return 3;
             }
         }
         return 0;
